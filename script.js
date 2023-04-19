@@ -1,24 +1,33 @@
-let touchstartX = 0;
-let touchendX = 0;
-const slider = document.querySelector('.bb');
+var touchstartX = 0;
+var touchendX = 0;
 
-slider.addEventListener('touchstart', function(event) {
+var slideshow = document.querySelector('.bb');
+
+slideshow.addEventListener('touchstart', function(event) {
     touchstartX = event.changedTouches[0].screenX;
 }, false);
 
-slider.addEventListener('touchend', function(event) {
+slideshow.addEventListener('touchend', function(event) {
     touchendX = event.changedTouches[0].screenX;
-    handleSwipe();
+    handleGesture();
 }, false);
 
-function handleSwipe() {
+function handleGesture() {
     if (touchendX < touchstartX) {
         // swiped left
-        slider.scrollLeft += slider.offsetWidth;
+        nextSlide();
     }
-    
+
     if (touchendX > touchstartX) {
         // swiped right
-        slider.scrollLeft -= slider.offsetWidth;
+        previousSlide();
     }
+}
+
+function nextSlide() {
+    // Code to display the next slide
+}
+
+function previousSlide() {
+    // Code to display the previous slide
 }
