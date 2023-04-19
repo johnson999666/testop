@@ -1,40 +1,24 @@
-var mySwiper = new Swiper('.swiper-container', {
-  // Optional parameters
-  direction: 'horizontal',
-  loop: true,
-  speed: 500,
+let touchstartX = 0;
+let touchendX = 0;
+const slider = document.querySelector('.bb');
 
-  // Enable touch events
-  touchEventsTarget: 'wrapper',
+slider.addEventListener('touchstart', function(event) {
+    touchstartX = event.changedTouches[0].screenX;
+}, false);
 
-  // Navigation arrows
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+slider.addEventListener('touchend', function(event) {
+    touchendX = event.changedTouches[0].screenX;
+    handleSwipe();
+}, false);
 
-  // Responsive breakpoints
-  breakpoints: {
-    // when window width is >= 768px
-    768: {
-      slidesPerView: 3,
-      spaceBetween: 30
-    },
-    // when window width is >= 1024px
-    1024: {
-      slidesPerView: 4,
-      spaceBetween: 40
+function handleSwipe() {
+    if (touchendX < touchstartX) {
+        // swiped left
+        slider.scrollLeft += slider.offsetWidth;
     }
-  }
-});
-
-// Add touch-based swiping
-mySwiper.on('touchStart', function() {
-  // Disable autoplay when user starts swiping
-  mySwiper.autoplay.stop();
-});
-
-mySwiper.on('touchEnd', function() {
-  // Resume autoplay when user stops swiping
-  mySwiper.autoplay.start();
-});
+    
+    if (touchendX > touchstartX) {
+        // swiped right
+        slider.scrollLeft -= slider.offsetWidth;
+    }
+}
